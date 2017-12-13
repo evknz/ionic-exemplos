@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Storage - SQLite</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div align="right">
+    <a (click)="showTip(true)" *ngIf="!show">
+      <ion-icon name="help-buoy" item-left></ion-icon>
+      Dica
+    </a>
+    <a (click)="showTip(false)" *ngIf="show">
+      <ion-icon name="close-circle" item-left></ion-icon>
+      Fechar
+    </a>
+  </div>
+
+  <ion-card *ngIf="show" class="tip warning" (click)="showTip(false)">
+
+    <ion-card-header class="warning">
+      Quando usar?
+    </ion-card-header>
+
+    <ion-card-content>
+      <div>
+        {{dica}}
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <form #myForm="ngForm" (ngClick)="onClick()">
+      <ion-item-divider class="divider">
+        Formulário
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label>Nome</ion-label>
+        <ion-input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="pessoa.name" required></ion-input>
+      </ion-item>
+
+      <div class="danger" [hidden]="(name.valid || name.pristine)">Campo 'nome' é obrigatório!</div>
+
+      <ion-item>
+        <ion-label>E-mail</ion-label>
+        <ion-input type="email" id="email" name="email" #email="ngModel" [(ngModel)]="pessoa.email" required></ion-input>
+      </ion-item>
+
+      <div class="danger" [hidden]="email.valid || email.pristine">Campo 'e-mail' é obrigatório!</div>
+    </form>
+  </ion-list>
+
+  <p class="success" block *ngIf="success">{{success}}</p>
+  <p class="danger" block *ngIf="danger">{{danger}}</p>
+
+  <button ion-button *ngIf="!edicao" (click)="doCreate(pessoa)" block [disabled]="!myForm.form.valid">Adicionar</button>
+  <button ion-button *ngIf="edicao" (click)="doUpdate(pessoa)" block [disabled]="!myForm.form.valid">Alterar</button>
+  <button ion-button color="danger" *ngIf="edicao" (click)="doDelete(pessoa)" block [hidden]="myForm.form.pristine && !edicao">Remover</button>
+  <button ion-button color="light" (click)="resetForm()" block [hidden]="myForm.form.pristine && !edicao">Cancelar</button>
+
+  <ion-list>
+
+    <ion-item-divider class="divider">
+      Contatos
+    </ion-item-divider>
+
+    <ion-scroll scrollY="true" style="height: 260px">
+      <ion-item-sliding *ngFor="let pessoa of pessoas">
+        <ion-item (click)="itemTapped($event, pessoa)">
+          <ion-icon name="contact" item-left></ion-icon>
+          <div class="titulo">
+            {{pessoa.id}} - {{pessoa.name}}
+          </div>
+          <div>
+            <small>{{pessoa.email}}</small>
+          </div>
+        </ion-item>
+        <ion-item-options>
+          <button ion-button color="danger" (click)="doDelete(pessoa)">
+              Remover
+            </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-scroll>
+
+  </ion-list>
+</ion-content>

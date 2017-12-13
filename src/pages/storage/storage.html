@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Storage</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <button ion-item (click)="nextPage(1)">
+      <div>Exemplo com Indexed DB</div>
+    </button>
+    <button ion-item (click)="nextPage(2)">
+        Exemplo com SQLite
+    </button>
+  </ion-list>
+
+</ion-content>
