@@ -139,7 +139,6 @@ export class SQLiteService implements ServiceInterface<Contato>{
         } else {
             this.uiservice.toast("Você deve rodar este exemplo e um dispositivo ou um emulador!", 10000, 'top');
         }
-
     };
 
 }
